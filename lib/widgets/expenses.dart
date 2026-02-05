@@ -13,7 +13,7 @@ class Expenses extends StatefulWidget {
 class _Expenses extends State<Expenses> {
   final List<Expense> _registeredExpenses = [
     Expense(
-      title: 'Mariam Date',
+      title: 'Date',
       amount: 600,
       date: DateTime.now(),
       category: Category.trips,
@@ -26,11 +26,15 @@ class _Expenses extends State<Expenses> {
     ),
   ];
 
-  void _openAddExpenseOverlay(){
-    showModalBottomSheet(context: context, builder: (ctx) => NewExpense(onAddExpense: _addExpense,)
+  void _openAddExpenseOverlay() {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (ctx) => NewExpense(onAddExpense: _addExpense),
     );
   }
-  void _addExpense(Expense expense){
+
+  void _addExpense(Expense expense) {
     setState(() {
       _registeredExpenses.add(expense);
     });
@@ -40,7 +44,9 @@ class _Expenses extends State<Expenses> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [IconButton(onPressed: _openAddExpenseOverlay, icon: Icon(Icons.add))],
+        actions: [
+          IconButton(onPressed: _openAddExpenseOverlay, icon: Icon(Icons.add)),
+        ],
         backgroundColor: Colors.blueAccent,
         title: Text('Expense Tracker'),
       ),
