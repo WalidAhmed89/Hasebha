@@ -7,12 +7,12 @@ final formatter = DateFormat.yMd();
 
 enum Category { food, travel, trips, leisure, otherThings }
 
-const CategoryIcons ={
+const CategoryIcons = {
   Category.food: Icons.lunch_dining,
   Category.travel: Icons.directions_bus,
   Category.trips: Icons.airplanemode_active,
   Category.leisure: Icons.movie,
-  Category.otherThings: Icons.keyboard_command_key
+  Category.otherThings: Icons.keyboard_command_key,
 };
 
 class Expense {
@@ -28,8 +28,7 @@ class Expense {
   final DateTime date;
   final Category category;
 
-  String get formattedDate{
+  String get formattedDate {
     return formatter.format(date);
   }
 }
-

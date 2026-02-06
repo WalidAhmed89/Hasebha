@@ -40,20 +40,55 @@ class _Expenses extends State<Expenses> {
     });
   }
 
+  void _removeExpense(Expense expense) {
+    final expenseIndex = _registeredExpenses.indexOf(expense);
+    setState(() {
+      _registeredExpenses.remove(expense);
+    });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.blueAccent,
+        duration: Duration(seconds: 3),
+        action: SnackBarAction(
+          label: 'Undo',
+          textColor: Colors.black,
+          onPressed: () {
+            setState(() {
+              _registeredExpenses.insert(expenseIndex, expense);
+            });
+          },
+        ),
+        content: Text(
+          'Expense deleted',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    Widget mainContant = Center(
+      child: Text('There no expenses. Start adding some!'),
+    );
+    if (_registeredExpenses.isNotEmpty) {
+      mainContant = ExpensesList(
+        expenses: _registeredExpenses,
+        onRemoveExpense: _removeExpense,
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(onPressed: _openAddExpenseOverlay, icon: Icon(Icons.add)),
         ],
-        backgroundColor: Colors.blueAccent,
         title: Text('Expense Tracker'),
       ),
       body: Column(
         children: [
           Text('The Cart'),
-          Expanded(child: ExpensesList(expenses: _registeredExpenses)),
+          Expanded(child: mainContant),
         ],
       ),
     );
