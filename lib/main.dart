@@ -39,14 +39,12 @@ void main() {
           titleLarge: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 24,
-            color: kDarkColorSchem.primaryContainer,
-          ),
-          titleMedium: TextStyle(
             color: kDarkColorSchem.onPrimaryContainer,
-          )
+          ),
+          titleMedium: TextStyle(color: kDarkColorSchem.onPrimaryContainer),
         ),
         iconTheme: IconThemeData().copyWith(
-          color: kDarkColorSchem.primaryContainer
+          color: kDarkColorSchem.primaryContainer,
         ),
       ),
 

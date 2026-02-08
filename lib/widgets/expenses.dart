@@ -76,8 +76,12 @@ class _Expenses extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     Widget mainContant = Center(
-      child: Text('There no expenses. Start adding some!'),
+      child: Text(
+        'There no expenses. Start adding some!',
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
     );
     if (_registeredExpenses.isNotEmpty) {
       mainContant = ExpensesList(
@@ -92,12 +96,19 @@ class _Expenses extends State<Expenses> {
         ],
         title: Text('Expense Tracker'),
       ),
-      body: Column(
-        children: [
-          Chart(expenses: _registeredExpenses),
-          Expanded(child: mainContant),
-        ],
-      ),
+      body: width < 600
+          ? Column(
+              children: [
+                Chart(expenses: _registeredExpenses),
+                Expanded(child: mainContant),
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(child: Chart(expenses: _registeredExpenses)),
+                Expanded(child: mainContant),
+              ],
+            ),
     );
   }
 }

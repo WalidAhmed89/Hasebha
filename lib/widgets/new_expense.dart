@@ -89,7 +89,7 @@ class _NewExpenseState extends State<NewExpense> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
-            style: TextStyle(color: Colors.white),
+            style: Theme.of(context).textTheme.titleMedium,
           ),
 
           TextField(
@@ -102,7 +102,7 @@ class _NewExpenseState extends State<NewExpense> {
               ),
             ),
             keyboardType: TextInputType.number,
-            style: TextStyle(color: Colors.white),
+            style: Theme.of(context).textTheme.titleMedium,
           ),
 
           SizedBox(height: 18),
@@ -118,7 +118,7 @@ class _NewExpenseState extends State<NewExpense> {
                       .map(
                         (category) => DropdownMenuItem(
                           value: category,
-                          child: Text(category.name.toUpperCase(),style: TextStyle(color: Colors.white),),
+                          child: Text(category.name.toUpperCase()),
                         ),
                       )
                       .toList(),
@@ -147,6 +147,7 @@ class _NewExpenseState extends State<NewExpense> {
                       : formatter.format(_selectedDate!),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
             ],
