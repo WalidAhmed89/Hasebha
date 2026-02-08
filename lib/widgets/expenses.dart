@@ -1,4 +1,5 @@
 import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/widgets/chart/chart.dart';
 import 'package:expense_tracker/widgets/expenses_list/expenses_list.dart';
 import 'package:expense_tracker/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,13 @@ class _Expenses extends State<Expenses> {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
-      builder: (ctx) => NewExpense(onAddExpense: _addExpense),
+      builder: (ctx) => Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom),
+        child: SizedBox(
+          height: MediaQuery.of(ctx).size.height * 0.75,
+          child: NewExpense(onAddExpense: _addExpense),
+        ),
+      ),
     );
   }
 
@@ -87,7 +94,7 @@ class _Expenses extends State<Expenses> {
       ),
       body: Column(
         children: [
-          Text('The Cart'),
+          Chart(expenses: _registeredExpenses),
           Expanded(child: mainContant),
         ],
       ),

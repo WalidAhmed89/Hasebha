@@ -77,6 +77,7 @@ class _NewExpenseState extends State<NewExpense> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsetsGeometry.fromLTRB(16, 48, 16, 16),
+
       child: Column(
         children: [
           TextField(
@@ -88,83 +89,80 @@ class _NewExpenseState extends State<NewExpense> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
+            style: TextStyle(color: Colors.white),
           ),
 
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: _amountController,
-                  decoration: InputDecoration(
-                    prefixText: '\$ ',
-                    label: Text(
-                      'Amount',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
+          TextField(
+            controller: _amountController,
+            decoration: InputDecoration(
+              prefixText: '\$ ',
+              label: Text(
+                'Amount',
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
-
-              const SizedBox(width: 16),
-
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      _selectedDate == null
-                          ? 'No date selected'
-                          : formatter.format(_selectedDate!),
-                    ),
-                    IconButton(
-                      onPressed: _presentDatePicker,
-                      icon: Icon(Icons.calendar_month),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
+            keyboardType: TextInputType.number,
+            style: TextStyle(color: Colors.white),
           ),
 
           SizedBox(height: 18),
 
           Row(
             children: [
-              DropdownButton(
-                value: _selectedCategory,
-                items: Category.values
-                    .map(
-                      (category) => DropdownMenuItem(
-                        value: category,
-                        child: Text(category.name.toUpperCase()),
-                      ),
-                    )
-                    .toList(),
-                onChanged: (value) {
-                  if (value == null) {
-                    return;
-                  }
-                  setState(() {
-                    _selectedCategory = value;
-                  });
-                },
+              Expanded(
+                flex: 3,
+                child: DropdownButton(
+                  isExpanded: true,
+                  value: _selectedCategory,
+                  items: Category.values
+                      .map(
+                        (category) => DropdownMenuItem(
+                          value: category,
+                          child: Text(category.name.toUpperCase(),style: TextStyle(color: Colors.white),),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    if (value == null) {
+                      return;
+                    }
+                    setState(() {
+                      _selectedCategory = value;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(width: 4),
+
+              IconButton(
+                onPressed: _presentDatePicker,
+                icon: Icon(Icons.calendar_month),
               ),
 
-              const Spacer(),
-
-              ElevatedButton(
-                onPressed: _submitExpenseData,
-                child: Text('Add Expense'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('Cancel'),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  _selectedDate == null
+                      ? 'Select Date'
+                      : formatter.format(_selectedDate!),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
               ),
             ],
+          ),
+          SizedBox(height: 10),
+
+          ElevatedButton(
+            onPressed: _submitExpenseData,
+            child: Text('Add Expense'),
+          ),
+
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Cancel'),
           ),
         ],
       ),
