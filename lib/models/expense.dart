@@ -5,14 +5,22 @@ import 'package:uuid/uuid.dart';
 const uuid = Uuid();
 final formatter = DateFormat.yMd();
 
-enum Category { food, travel, trips, leisure, otherThings }
+enum Category {
+  Education,
+  Food,
+  Transportation,
+  Personal,
+  Entertainment,
+  Other,
+}
 
 const CategoryIcons = {
-  Category.food: Icons.lunch_dining,
-  Category.travel: Icons.directions_bus,
-  Category.trips: Icons.airplanemode_active,
-  Category.leisure: Icons.movie,
-  Category.otherThings: Icons.keyboard_command_key,
+  Category.Education: Icons.school,
+  Category.Food: Icons.restaurant,
+  Category.Transportation: Icons.directions_bus,
+  Category.Personal: Icons.person,
+  Category.Entertainment: Icons.movie,
+  Category.Other: Icons.more_horiz,
 };
 
 class Expense {
@@ -31,21 +39,43 @@ class Expense {
   String get formattedDate {
     return formatter.format(date);
   }
+
+  // Object → Map
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'amount': amount,
+      'date': date.toIso8601String(),
+      'category': category.name,
+    };
+  }
+
+  // Map → Object
+  factory Expense.fromJson(Map<String, dynamic> json) {
+    return Expense(
+      title: json['title'],
+      amount: json['amount'],
+      date: DateTime.parse(json['date']),
+      category: Category.values.firstWhere((c) => c.name == json['category']),
+    );
+  }
 }
 
-class ExpenseBucket{
-  const ExpenseBucket({required this.category,required this.expenses});
+class ExpenseBucket {
+  const ExpenseBucket({required this.category, required this.expenses});
 
   ExpenseBucket.forCategory(List<Expense> allExpenses, this.category)
-      : expenses = allExpenses.where((expense) => expense.category == category).toList();
+    : expenses = allExpenses
+          .where((expense) => expense.category == category)
+          .toList();
 
   final Category category;
   final List<Expense> expenses;
 
-  double get totalExpenses{
+  double get totalExpenses {
     double sum = 0;
 
-    for(final expense in expenses){
+    for (final expense in expenses) {
       sum += expense.amount;
     }
     return sum;

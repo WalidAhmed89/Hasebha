@@ -14,7 +14,7 @@ class _NewExpenseState extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime? _selectedDate;
-  Category _selectedCategory = Category.trips;
+  Category _selectedCategory = Category.Personal;
 
   void _presentDatePicker() async {
     final now = DateTime.now();
@@ -46,16 +46,29 @@ class _NewExpenseState extends State<NewExpense> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: Text('Invalid input'),
+          title: Text(
+            'Invalid input',
+            style: TextStyle(
+              color: Theme.of(context).textTheme.titleMedium?.color,
+            ),
+          ),
           content: Text(
             'Make sure a valid title, amount, date and category was entered..',
+            style: TextStyle(
+              color: Theme.of(context).textTheme.titleMedium?.color,
+            ),
           ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(ctx);
               },
-              child: Text('Okay'),
+              child: Text(
+                'Okay',
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.titleMedium?.color,
+                ),
+              ),
             ),
           ],
         ),

@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-
-import 'package:expense_tracker/widgets/chart/chart_bar.dart';
 import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/widgets/chart/chart_bar.dart';
+import 'package:flutter/material.dart';
 
 class Chart extends StatelessWidget {
   const Chart({super.key, required this.expenses});
@@ -10,11 +9,12 @@ class Chart extends StatelessWidget {
 
   List<ExpenseBucket> get buckets {
     return [
-      ExpenseBucket.forCategory(expenses, Category.food),
-      ExpenseBucket.forCategory(expenses, Category.leisure),
-      ExpenseBucket.forCategory(expenses, Category.travel),
-      ExpenseBucket.forCategory(expenses, Category.trips),
-      ExpenseBucket.forCategory(expenses, Category.otherThings),
+      ExpenseBucket.forCategory(expenses, Category.Education),
+      ExpenseBucket.forCategory(expenses, Category.Food),
+      ExpenseBucket.forCategory(expenses, Category.Transportation),
+      ExpenseBucket.forCategory(expenses, Category.Personal),
+      ExpenseBucket.forCategory(expenses, Category.Entertainment),
+      ExpenseBucket.forCategory(expenses, Category.Other),
     ];
   }
 
@@ -36,10 +36,7 @@ class Chart extends StatelessWidget {
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
       margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.symmetric(
-        vertical: 16,
-        horizontal: 8,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       width: double.infinity,
       height: 180,
       decoration: BoxDecoration(
@@ -47,7 +44,7 @@ class Chart extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             Theme.of(context).colorScheme.primary.withOpacity(0.3),
-            Theme.of(context).colorScheme.primary.withOpacity(0.0)
+            Theme.of(context).colorScheme.primary.withOpacity(0.0),
           ],
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
@@ -64,7 +61,7 @@ class Chart extends StatelessWidget {
                     fill: bucket.totalExpenses == 0
                         ? 0
                         : bucket.totalExpenses / maxTotalExpense,
-                  )
+                  ),
               ],
             ),
           ),
@@ -73,22 +70,21 @@ class Chart extends StatelessWidget {
             children: buckets
                 .map(
                   (bucket) => Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: Icon(
-                    CategoryIcons[bucket.category],
-                    color: isDarkMode
-                        ? Theme.of(context).colorScheme.secondary
-                        : Theme.of(context)
-                        .colorScheme
-                        .primary
-                        .withOpacity(0.7),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Icon(
+                        CategoryIcons[bucket.category],
+                        color: isDarkMode
+                            ? Theme.of(context).colorScheme.secondary
+                            : Theme.of(
+                                context,
+                              ).colorScheme.primary.withOpacity(0.7),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            )
+                )
                 .toList(),
-          )
+          ),
         ],
       ),
     );
