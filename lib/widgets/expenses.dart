@@ -68,7 +68,7 @@ class _Expenses extends State<Expenses> {
       builder: (ctx) => Padding(
         padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom),
         child: SizedBox(
-          height: MediaQuery.of(ctx).size.height * 0.45,
+          height: MediaQuery.of(ctx).size.height * 0.55,
           child: NewExpense(onAddExpense: _addExpense),
         ),
       ),
@@ -82,7 +82,7 @@ class _Expenses extends State<Expenses> {
       builder: (cx) => Padding(
         padding: EdgeInsets.only(bottom: MediaQuery.of(cx).viewInsets.bottom),
         child: SizedBox(
-          height: MediaQuery.of(cx).size.height * 0.25,
+          height: MediaQuery.of(cx).size.height * 0.35,
           child: NewBalance(onAddMoney: _addMoney),
         ),
       ),
@@ -165,7 +165,7 @@ class _Expenses extends State<Expenses> {
             '\$${_currentBalance.toStringAsFixed(2)}',
             style: Theme.of(
               context,
-            ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold,color: Colors.white),
+            ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold,color: Theme.of(context).textTheme.titleMedium?.color,),
           ),
         ],
       ),
