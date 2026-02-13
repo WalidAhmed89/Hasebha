@@ -163,9 +163,10 @@ class _Expenses extends State<Expenses> {
           const SizedBox(height: 6),
           Text(
             '\$${_currentBalance.toStringAsFixed(2)}',
-            style: Theme.of(
-              context,
-            ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold,color: Theme.of(context).textTheme.titleMedium?.color,),
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).textTheme.titleMedium?.color,
+            ),
           ),
         ],
       ),
@@ -188,6 +189,7 @@ class _Expenses extends State<Expenses> {
       );
     }
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         actions: [
           IconButton(onPressed: _openAddExpenseOverlay, icon: Icon(Icons.add)),
